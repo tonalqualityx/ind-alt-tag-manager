@@ -54,8 +54,18 @@ function ind_alt_tag_manager_clear_update_schedule() {
  * @return void
  */
 function ind_alt_tag_manager_fetch_update_data() {
+	$api_url = add_query_arg(
+		array(
+			'version'     => IND_ALT_TAG_MANAGER_VERSION,
+			'site_url'    => get_site_url(),
+			'wp_version'  => get_bloginfo( 'version' ),
+			'php_version' => phpversion(),
+		),
+		'https://plugins.becomeindelible.com/api/v1/indelible-alt-tags/check'
+	);
+
 	$response = wp_remote_get(
-		'https://plugins.becomeindelible.com/api/v1/indelible-alt-tags/check',
+		$api_url,
 		array( 'timeout' => 10 )
 	);
 
