@@ -51,12 +51,17 @@ jQuery(document).ready(function( $ ) {
             }
         }).done(function(response){
             if(response.success && response.data.updated){
-                let $overlay = $('<div>', {'class': 'alt-image-overlay'})
-                    .append($('<img>', {
-                        'src': ind_alt_tag_manager_admin_ajax.pluginUrl + 'images/checkmark.png',
-                        'alt': 'checkmark'
-                    }));
-                $('.ind-alt-tag-manager-container').find('[data-id=' + id + ']').after($overlay);
+                // Find the parent container and fade it out, then remove
+                let $container = $button.closest('.ind-alt-tag-single');
+                $container.fadeOut(400, function() {
+                    $(this).remove();
+
+                    // Check if container is now empty
+                    if ($('.ind-alt-tag-single').length === 0) {
+                        // Reload the page to show the "congratulations" message
+                        location.reload();
+                    }
+                });
             }else{
                 alert(i18n.saveFailed);
             }
