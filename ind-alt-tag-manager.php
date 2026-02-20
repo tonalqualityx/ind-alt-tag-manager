@@ -3,7 +3,7 @@
  * Plugin Name: Indelible Alt Tag Manager
  * Plugin URI: https://becomeindelible.com
  * Description: This plugin finds missing alt tags and sets up an easy to use interface to update missing alt tags.
- * Version: 0.1.1
+ * Version: 0.1.2
  * Author: Indelible Inc.
  * Author URI: https://becomeindelible.com
  * License: GPL2
@@ -23,7 +23,7 @@ define( 'IND_ALT_TAG_MANAGER_ROOT_URL', plugin_dir_url( __FILE__ ) );
 define( 'IND_ALT_TAG_MANAGER_ROOT_FILE', __FILE__ );
 
 // VERSION - Update this when releasing new versions
-define( 'IND_ALT_TAG_MANAGER_VERSION', '0.1.1' );
+define( 'IND_ALT_TAG_MANAGER_VERSION', '0.1.2' );
 
 // Plugin name (avoid get_plugin_data() at load time to prevent translation issues)
 define( 'IND_ALT_TAG_MANAGER_NAME', 'Indelible Alt Tag Manager' );
