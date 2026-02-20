@@ -319,6 +319,7 @@ add_action( 'deleted_post_meta', 'ind_alt_tag_manager_clear_cache_on_alt_delete'
 function ind_alt_tag_manager_delete_alt_tag_trans() {
     global $wpdb;
 
+    // Delete main transients (this also clears object cache).
     delete_transient( 'ind-alt-tag-warning' );
     delete_transient( 'ind_alt_tag_count_no_alt' );
 
@@ -339,6 +340,16 @@ function ind_alt_tag_manager_delete_alt_tag_trans() {
             '_transient_timeout_ind_alt_tag_images_no_alt_page_%'
         )
     );
+
+    // CRITICAL: Flush object cache to ensure transients are actually cleared.
+    // When object caching (Redis/Memcached) is enabled via Hummingbird or other plugins,
+    // transients are stored in memory, not the database. SQL deletes don't affect them.
+    if ( function_exists( 'wp_cache_flush' ) ) {
+        wp_cache_flush();
+    }
+
+    // Also call clean_post_cache for any lingering cache issues.
+    clean_post_cache( 0 );
 }
 
 /**
