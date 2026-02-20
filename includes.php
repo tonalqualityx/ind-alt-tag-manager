@@ -14,3 +14,4 @@ if ( ! function_exists( 'get_plugins' ) ) {
 
 require_once IND_ALT_TAG_MANAGER_ROOT_PATH . 'update-checker.php';
 require_once IND_ALT_TAG_MANAGER_ROOT_PATH . 'admin/admin-setup.php';
+require_once IND_ALT_TAG_MANAGER_ROOT_PATH . 'admin/settings-page.php';
