@@ -371,7 +371,9 @@ function ind_alt_tag_manager_update_alt_tag() {
     }
 
     $return = update_post_meta( $id, '_wp_attachment_image_alt', $alt );
-    ind_alt_tag_manager_delete_alt_tag_trans();
+
+    // Clear all caches including third-party caching plugins.
+    ind_alt_tag_manager_clear_all_caches( $id );
 
     wp_send_json_success( array( 'updated' => $return ) );
 }
