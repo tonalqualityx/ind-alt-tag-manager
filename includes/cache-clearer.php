@@ -105,26 +105,36 @@ function ind_alt_tag_manager_clear_hummingbird_cache( $attachment_id ) {
         return;
     }
 
-    // Clear page cache.
+    // Try to clear via Hummingbird's Cache module directly.
+    if ( class_exists( 'Hummingbird\WP_Hummingbird' ) ) {
+        $cache_module = \Hummingbird\WP_Hummingbird::get_instance()->core->module( 'page_cache' );
+        if ( $cache_module && method_exists( $cache_module, 'clear_cache' ) ) {
+            $cache_module->clear_cache();
+        }
+    }
+
+    // Alternative: Use the Hummingbird module functions.
     if ( function_exists( 'wphb_clear_page_cache' ) ) {
         wphb_clear_page_cache();
     }
 
-    // Clear object cache.
-    if ( function_exists( 'wphb_clear_object_cache' ) ) {
-        wphb_clear_object_cache();
+    // Clear object cache if Hummingbird manages it.
+    if ( function_exists( 'wphb_flush_object_cache' ) ) {
+        wphb_flush_object_cache();
     }
 
-    // Alternative: Use the core class methods if available.
-    if ( function_exists( 'wphb_clear_cache' ) ) {
-        wphb_clear_cache();
+    // Clear Gravatar cache.
+    if ( function_exists( 'wphb_clear_gravatar_cache' ) ) {
+        wphb_clear_gravatar_cache();
     }
 
-    // Clear cache for specific attachment URL.
-    $attachment_url = get_permalink( $attachment_id );
-    if ( $attachment_url && function_exists( 'wphb_clear_url_cache' ) ) {
-        wphb_clear_url_cache( $attachment_url );
+    // Clear all Hummingbird caches.
+    if ( function_exists( 'wphb_delete_cache' ) ) {
+        wphb_delete_cache();
     }
+
+    // Alternative: Use do_action hooks that Hummingbird listens to.
+    do_action( 'wphb_clear_page_cache' );
 
     /**
      * Fires after Hummingbird cache has been cleared.
