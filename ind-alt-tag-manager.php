@@ -3,7 +3,7 @@
  * Plugin Name: Indelible Alt Tag Manager
  * Plugin URI: https://becomeindelible.com
  * Description: This plugin finds missing alt tags and sets up an easy to use interface to update missing alt tags.
- * Version: 1.0.0
+ * Version: 0.1.0
  * Author: Indelible Inc.
  * Author URI: https://becomeindelible.com
  * License: GPL2
@@ -22,12 +22,31 @@ define( 'IND_ALT_TAG_MANAGER_SLUG', plugin_basename( IND_ALT_TAG_MANAGER_ROOT_PA
 define( 'IND_ALT_TAG_MANAGER_ROOT_URL', plugin_dir_url( __FILE__ ) );
 define( 'IND_ALT_TAG_MANAGER_ROOT_FILE', __FILE__ );
 
-// VERSIONS
-if ( ! function_exists( 'get_plugin_data' ) ) {
-    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+// VERSION - Update this when releasing new versions
+define( 'IND_ALT_TAG_MANAGER_VERSION', '0.1.0' );
+
+// Plugin name (avoid get_plugin_data() at load time to prevent translation issues)
+define( 'IND_ALT_TAG_MANAGER_NAME', 'Indelible Alt Tag Manager' );
+
+// Get version dynamically only when needed (not at plugin load)
+function ind_alt_tag_manager_get_version() {
+    if ( ! defined( 'IND_ALT_TAG_MANAGER_VERSION_DYNAMIC' ) ) {
+        if ( ! function_exists( 'get_plugin_data' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+        $data = get_plugin_data( __FILE__ );
+        define( 'IND_ALT_TAG_MANAGER_VERSION_DYNAMIC', $data['Version'] );
+        define( 'IND_ALT_TAG_MANAGER_NAME_DYNAMIC', $data['Name'] );
+    }
+    return IND_ALT_TAG_MANAGER_VERSION_DYNAMIC;
 }
-define( 'IND_ALT_TAG_MANAGER_NAME', get_plugin_data( __FILE__ )['Name'] );
-define( 'IND_ALT_TAG_MANAGER_VERSION', get_plugin_data( __FILE__ )['Version'] );
+
+function ind_alt_tag_manager_get_name() {
+    if ( ! defined( 'IND_ALT_TAG_MANAGER_NAME_DYNAMIC' ) ) {
+        ind_alt_tag_manager_get_version();
+    }
+    return IND_ALT_TAG_MANAGER_NAME_DYNAMIC;
+}
 
 require_once IND_ALT_TAG_MANAGER_ROOT_PATH . 'includes.php';
 

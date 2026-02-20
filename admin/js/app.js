@@ -21,8 +21,23 @@ jQuery(document).ready(function( $ ) {
         $('.ind-alt-tag-manager-update-form-container').slideToggle();
     });
 
+    // Save on button click
     $('body').on('click', '.ind-alt-tag-save', function(){
-        let id = $(this).data('id');
+        saveAltTag($(this));
+    });
+
+    // Save on Enter key press in input field
+    $('body').on('keypress', '.ind-alt-tag-alt', function(e){
+        if (e.which === 13) { // Enter key
+            e.preventDefault();
+            let id = $(this).attr('id').replace('ind-alt-tag-alt', '');
+            $('.ind-alt-tag-save[data-id="' + id + '"]').trigger('click');
+        }
+    });
+
+    // Function to save alt tag
+    function saveAltTag($button){
+        let id = $button.data('id');
         let alt = $('#ind-alt-tag-alt' + id).val();
 
         $.ajax({
@@ -48,7 +63,7 @@ jQuery(document).ready(function( $ ) {
         }).fail(function(){
             alert(i18n.errorGeneric);
         });
-    });
+    }
 
     // load more - Server-side pagination
     $('body').on('click', '.ind-alt-tag-more', function(){

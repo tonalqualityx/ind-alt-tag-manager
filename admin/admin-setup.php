@@ -110,7 +110,27 @@ function ind_alt_tag_manager_admin_settings() {
     </div>
     <?php
     // All content in the buffer is already escaped individually above.
-    echo wp_kses_post( ob_get_clean() );
+    // Use wp_kses with custom allowed tags to preserve form inputs.
+    $allowed_html = array_merge(
+        wp_kses_allowed_html('post'),
+        [
+            'input' => [
+                'type' => true,
+                'id' => true,
+                'class' => true,
+                'value' => true,
+                'placeholder' => true,
+            ],
+            'button' => [
+                'class' => true,
+                'data-id' => true,
+            ],
+            'label' => [
+                'for' => true,
+            ],
+        ]
+    );
+    echo wp_kses(ob_get_clean(), $allowed_html);
 }
 
 /**

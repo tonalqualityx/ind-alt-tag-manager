@@ -1,0 +1,139 @@
+/* Settings Page Styles for Indelible Alt Tag Manager */
+
+/* Settings Container */
+.ind-alt-tag-manager-settings-container {
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+/* Card Style for Settings Sections */
+.ind-alt-settings-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.ind-alt-settings-card h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f1;
+    font-size: 1.3em;
+}
+
+/* Version Display */
+.ind-alt-version {
+    font-size: 1.1em;
+    padding: 4px 8px;
+    background: #f0f6fc;
+    border: 1px solid #d0e4f5;
+    border-radius: 4px;
+    color: #0a4f7d;
+}
+
+/* Endpoint Display */
+.ind-alt-endpoint {
+    display: block;
+    padding: 12px;
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    word-break: break-all;
+    font-size: 12px;
+}
+
+/* Update Check Section */
+.ind-alt-update-check-section {
+    margin: 16px 0;
+}
+
+/* Results Area */
+.ind-alt-update-results {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f1;
+}
+
+.ind-alt-update-results.hidden {
+    display: none;
+}
+
+/* Status Display */
+.ind-alt-results-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    font-size: 1.1em;
+}
+
+.ind-alt-spinner {
+    animation: ind-alt-spin 1s linear infinite;
+}
+
+@keyframes ind-alt-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ind-alt-spinner.hidden {
+    display: none;
+}
+
+/* Notice Styles (inline notices) */
+.notice.inline {
+    display: block;
+    margin: 16px 0;
+}
+
+/* Debug Section */
+.ind-alt-debug-section {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f1;
+}
+
+.ind-alt-debug-section h4 {
+    margin: 0 0 12px 0;
+    color: #3c434a;
+}
+
+/* Raw Response Display */
+#ind-alt-raw-response {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 16px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 12px;
+}
+
+#ind-alt-raw-response.hidden {
+    display: none;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .ind-alt-settings-card {
+        padding: 16px;
+    }
+
+    .ind-alt-results-status {
+        flex-wrap: wrap;
+    }
+}
